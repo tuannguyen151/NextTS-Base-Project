@@ -1,0 +1,61 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo '🏗️👷 Styling your project before committing👷‍♂️🏗️'
+echo 'please be patient, this may take a while...'
+
+GREEN='\033[0;32m'
+GREEN_BLUE='\033[38;2;64;142;145m'
+RESET='\033[0m'
+
+# Check Prettier standards
+prettierCheckFiles=$(git diff --name-only HEAD | grep -E '\.(css|scss|md|html|json)$' | tr '\n' ' ')
+if [ -n "$prettierCheckFiles" ]; then
+    echo "\n✨ Prettier check files:"
+    echo "${GREEN_BLUE}$(git diff --name-only HEAD | grep -E '\.(css|scss|md|html|json)$')${RESET}";
+
+    npx prettier -c $prettierCheckFiles ||
+    (
+        echo "🔨❌ Failed Styling check. 🔨❌";
+        echo "Run:"
+        echo "${GREEN}npx prettier -w \$(git diff --name-only HEAD | grep -E '\.(css|scss|md|html|json)$' | tr '\\\n' ' ')${RESET}"
+        echo "to fixed";
+        echo "Add changes and try commit again.";
+
+        false;
+    )
+else
+    echo '\n✨ Prettier: No change files found 🎉'
+fi
+
+# Check Next Lint
+lintCheckFiles=$(git diff --name-only HEAD | grep -E '\.(js|jsx|ts|tsx)$' | sed 's/^/--file /' | tr '\n' ' ')
+if [ -n "$lintCheckFiles" ]; then
+    echo "\n✨ Next lint check files:"
+    echo "${GREEN_BLUE}$(git diff --name-only HEAD | grep -E '\.(js|jsx|ts|tsx)$')${RESET}";
+
+    npx next lint $lintCheckFiles ||
+    (
+        echo "🔨❌ Failed Next Lint check.🔨❌";
+        echo "Run npm run lint, add changes and try commit again.";
+
+        false;
+    )
+else
+    echo '\n✨ Next Lint: No change files found 🎉'
+fi
+
+
+# Check tsconfig standards
+echo "\n✨ TypeScript check"
+npx tsc --pretty --noEmit ||
+(
+    echo "🔨❌ Failed Type check. 🔨❌";
+    echo "Are you seriously trying to write that? Make the changes required above."
+
+    false;
+)
+
+echo '\n🎉 No error found: committing this now.... ✨🚀🏄‍♂️🍻'
+
+npx lint-staged
