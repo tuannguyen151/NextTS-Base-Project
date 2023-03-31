@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-color;
+  }
+
+  h1 {
+    @apply text-2xl font-bold;
+  }
+
+  h2 {
+    @apply text-xl font-semibold;
+  }
+
+  h3 {
+    @apply text-lg font-medium;
+  }
+
+  a {
+    @apply text-button;
+  }
+  a:hover {
+    @apply opacity-80;
+  }
+
+  button,
+  .btn {
+    @apply font-bold py-2 px-4 rounded bg-button text-white transition ease-in-out duration-200;
+  }
+
+  button:hover,
+  .btn:hover {
+    @apply bg-hover text-color;
+  }
+}
