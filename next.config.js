@@ -1,6 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true
-}
+const nextTranslate = require('next-translate-plugin')
 
-export default nextConfig
+module.exports = nextTranslate({
+  reactStrictMode: true,
+  swcMinify: true,
+  i18n: {
+    locales: ['vi', 'en'],
+    defaultLocale: 'vi'
+  }
+})
