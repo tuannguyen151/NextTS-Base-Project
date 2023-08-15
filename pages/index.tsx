@@ -12,7 +12,7 @@ export default function Home() {
 
       <h1>Home</h1>
 
-      <div className='bg-red-200 h-96'></div>
+      <div className='h-96 bg-red-200'></div>
     </Layout>
   )
 }

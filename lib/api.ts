@@ -6,6 +6,8 @@ import Axios, {
 } from 'axios'
 import Cookies from 'js-cookie'
 
+import { convertObjectKeysToCamelCase } from './utils'
+
 const api = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   headers: {
@@ -26,7 +28,7 @@ const requestHandler = (request: InternalAxiosRequestConfig) => {
 }
 
 const responseHandler = (response: AxiosResponse) => {
-  return response.data
+  return convertObjectKeysToCamelCase(response.data)
 }
 
 const errorHandler = (error: AxiosError) => {
