@@ -1,4 +1,5 @@
 {
+  "plugins": ["prettier-plugin-tailwindcss"],
   "jsxSingleQuote": true,
   "singleQuote": true,
   "semi": false,
@@ -9,5 +10,19 @@
   "bracketSameLine": false,
   "useTabs": false,
   "arrowParens": "always",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "importOrder": [
+    "^next(.*)",
+    "^react(.*)",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]",
+    "@/components",
+    "@/hooks",
+    "@/contexts",
+    "@/store",
+    "(@/)(?!public)(.*)",
+    "@/public"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

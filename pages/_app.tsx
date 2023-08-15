@@ -1,9 +1,12 @@
-import { fontBase } from '@/lib/font'
-import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
+import Toast from '@/components/atoms/toast'
+
 import { BaseProvider } from '@/contexts'
+
+import { fontBase } from '@/lib/font'
+import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,6 +19,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <BaseProvider>
           <Component {...pageProps} />
         </BaseProvider>
+
+        <Toast />
       </main>
     </>
   )
